@@ -8,14 +8,14 @@
 
 import Foundation
 
-    struct user: Codable {
-        let userId: Int
-        let firstName: String
-        let lastName: String
-        let phoneNumber: String
-        let emailAddress: String
-    }
+struct user: Codable {
+    let userId: Int
+    let firstName: String
+    let lastName: String
+    let phoneNumber: String
+    let emailAddress: String
+}
 
-    struct sampleRecord: Codable {
-        let users: [user]
-    }
+struct sampleRecord: Codable {
+    let users: [user]
+}
