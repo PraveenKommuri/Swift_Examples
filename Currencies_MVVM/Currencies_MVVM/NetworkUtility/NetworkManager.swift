@@ -13,19 +13,20 @@ struct NetworkManager {
         
         URLSession.shared.dataTask(with: requestUrl) { (responseData, httpUrlResponse, error) in
             
-            if (error == nil && responseData != nil) {
+            if (responseData != nil) {
                 let decoder = JSONDecoder()
                 do {
                     let result = try decoder.decode(T.self, from: responseData!)
-                    _ = completionHandler(result, httpUrlResponse, error)
+                    completionHandler(result, httpUrlResponse, error)
+                    return
                 } catch let error {
-                    print("Error occurred while decoding: \(error)")
+                    print("Error occurred while decoding: \(error)")  //TODO - we can test this case by pass wrong model object.  Can add completion handler too.
                 }
             }
+            completionHandler(responseData as? T, httpUrlResponse, error)  //all other cases.
+            
         }.resume()
     }
-    
-    
     
     
 }

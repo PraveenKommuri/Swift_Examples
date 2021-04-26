@@ -7,21 +7,37 @@
 
 import Foundation
 
-struct CurrenciesViewModel {
+class CurrenciesViewModel {
     
-    func getCurrencies(completion: @escaping(_ response: CurrencyDataResponse?, URLResponse?, Error?) -> Void) {
+    public var currenciesTableData : CurrencyDataResponse?
+    
+    //func getCurrencies(completion: @escaping(_ response: CurrencyDataResponse?, URLResponse?, Error?) -> Void) {
+    func getCurrencies(completion: @escaping(Result<CurrencyDataResponse, Error>) -> Void) {
         
         let currenciesService = CurrenciesService()
-        
+                
         currenciesService.getCurrenciesService(endPoint: APIEndPoints.currencies) { (currencyDataResponse, urlResponse, error) in
-            completion(currencyDataResponse, urlResponse, error)
+            
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            
+            if let httpUrlResponse = urlResponse as? HTTPURLResponse, let currencyDataResponse = currencyDataResponse {
+                
+                //success case.
+                if httpUrlResponse.statusCode == 200 {
+                    self.currenciesTableData = currencyDataResponse
+                    completion(.success(currencyDataResponse))
+                    return
+                } else {
+                    let error = NSError(domain: "AppName", code: 0, userInfo: [NSLocalizedDescriptionKey: "Something went wrong. Please try again."])
+                    completion(.failure(error))
+                    return
+                }
+            }
+                        
         }
-        
-        
-//        currenciesService.getCurrenciesService(endPoint: "") { (currencyDataResponse, urlResponse, error) in
-//            _ = completion(currencyDataResponse, urlResponse, error)
-//        }
-
         
     }
     

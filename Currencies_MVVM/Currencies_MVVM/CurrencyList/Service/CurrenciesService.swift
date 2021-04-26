@@ -14,12 +14,8 @@ struct CurrenciesService {
         let currenciesApiUrl = URL(string: endPoint)
         let networkManager = NetworkManager()
         
-        do {
-            networkManager.getApiData(requestUrl: currenciesApiUrl!, resultType: CurrencyDataResponse.self) { (currencyAPIResponse, httpResponse, error) in
-                _ = completion(currencyAPIResponse, httpResponse, error)
-            }
-        } catch let error {
-            print("Error object: \(error)")
+        networkManager.getApiData(requestUrl: currenciesApiUrl!, resultType: CurrencyDataResponse.self) { (currencyAPIResponse, httpResponse, error) in
+            completion(currencyAPIResponse, httpResponse, error)
         }
         
     }
