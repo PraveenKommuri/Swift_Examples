@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 struct CurrencyDataResponse: Codable {
     var data: [Currency]
 }
