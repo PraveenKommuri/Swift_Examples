@@ -85,9 +85,9 @@
 			isa = PBXGroup;
 			children = (
 				AC82572E2630FB420001FD4A /* View */,
-				AC82572D2630FB3C0001FD4A /* Models */,
 				AC82572C2630FB350001FD4A /* ViewModel */,
 				AC82572B2630FB2C0001FD4A /* Service */,
+				AC82572D2630FB3C0001FD4A /* Models */,
 			);
 			path = CurrencyList;
 			sourceTree = "<group>";
